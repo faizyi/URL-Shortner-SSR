@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home Page</title>
+    <link rel="stylesheet" href="/url.css">
+</head>
+<body>
+    <!-- URL Input Section -->
+    <section class="section1">
+        <div class="shorturl-container">
+            <form method="post" action="/url">
+                <h1>URL Shortener</h1>
+                <input type="url" name="url" class="input-url" placeholder="Enter your long URL here" required>
+                <br>
+                <button class="btn-generate">Generate Short URL</button>
+            </form>
+
+            <!-- Display Short URL -->
+            <div>
+                <% if (locals.id) { %>
+                    <p>Your Short URL is here: 
+                        <a target="_blank" href="http://localhost:9001/url/<%= id %>">
+                            http://localhost:9001/url/<%= id %>
+                        </a>
+                    </p>
+                <% } %>
+            </div>
+
+            <!-- Display Errors -->
+            <div>
+                <% if (locals.error) { %>
+                    <p class="error-message"><%= error %></p>
+                <% } %>
+            </div>
+        </div>
+    </section>
+
+    <!-- Analytics Section -->
+    <section class="analytics-section">
+        <table class="analytics-table">
+            <thead>
+                <tr>
+                    <th>S. No</th>
+                    <th>Short ID</th>
+                    <th>Redirect URL</th>
+                    <th>Total Clicks</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% if (locals.urls) { %>
+                    <% urls.forEach((url, index) => { %>
+                        <tr>
+                            <td><%= index + 1 %></td>
+                            <td><a target="_blank" href="http://localhost:9001/url/<%= url.shortID %>">
+                            http://localhost:9001/url/<%= url.shortID %></a></td>
+                            <td><%= url.redirectURL %></td>
+                            <td><%= url.visitHistory.length %></td>
+                            <td>
+                            <button onclick="deleteShortId(`<%= url._id %>`)">Delete</button></td>
+                        </tr>
+                    <% }) %>
+                <% } else {  %> 
+                    <tr>
+                        <td colspan="4" class="no-data">No URLs available</td>
+                    </tr>
+                <%  }  %>             
+            </tbody>
+        </table>
+    </section>
+
+
+    <script src="/url.js"></script>
+</body>
+</html>

@@ -1,0 +1,140 @@
+body, h1, input, button, table {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    background-color: #f4f4f9;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0;
+}
+
+.section1 {
+    width: 100%;
+    max-width: 700px;
+    padding: 2rem;
+    border-radius: 8px;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    margin-top: 20px;
+}
+
+.shorturl-container {
+    text-align: center;
+    width: 100%;
+}
+
+h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1rem;
+}
+
+.input-url {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-url:focus {
+    border-color: #007BFF;
+}
+
+.btn-generate {
+    background-color: #007BFF;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.2s;
+}
+
+.btn-generate:hover {
+    background-color: #0056b3;
+}
+
+.btn-generate:active {
+    background-color: #004085;
+}
+
+.error-message {
+    color: #d9534f;
+    margin-top: 0.5rem;
+}
+
+/* Updated Table Styling */
+.analytics-section {
+    width: 100%;
+    max-width: 1300px;
+    margin-top: 20px;
+    height: 350px;
+}
+
+/* If you want vertical scrolling for table */
+.analytics-table {
+    overflow-x: auto; /* Horizontal scrolling */
+    overflow-y: auto; /* Disable vertical scrolling in section */
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #ffffff;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden; /* Ensures rounded corners */
+}
+
+/* Vertical scroll within the table body */
+.analytics-section .table-wrapper {
+    max-height: 400px; /* Adjust as needed */
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.analytics-table thead {
+    background-color: #007BFF;
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+}
+
+.analytics-table th, .analytics-table td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+.analytics-table th {
+    font-weight: bold;
+}
+
+tbody tr:hover {
+    background-color: #f1f1f1;
+}
+
+.analytics-table tr:last-child td {
+    border-bottom: none;
+}
+
+/* Optional: Customize the scroll bar */
+.analytics-section::-webkit-scrollbar {
+    height: 10px; /* Horizontal scrollbar height */
+}
+
+.analytics-section::-webkit-scrollbar-thumb {
+    background-color: #007BFF;
+    border-radius: 5px;
+}
+
+.analytics-section::-webkit-scrollbar-track {
+    background-color: #f4f4f9;
+}
