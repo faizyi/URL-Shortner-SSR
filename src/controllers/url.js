@@ -3,18 +3,19 @@ import URL from "../models/url.js"
 export const generateShortURL = async (req, res) => {
     const body = req.body;
     if (!body.url) return res.status(400).render("home", { error: "url is required" });
-    const existingURL = await URL.findOne({redirectURL: body.url});
-    // const allUrls = await URL.find({});
-    // if (allUrls) res.render("home", {urls : allUrls})
-    if(existingURL) return res.render("home", {id: existingURL.shortID})
+    const existingURL = await URL.findOne({ redirectURL: body.url });
+    if (existingURL) return res.render("home", { id: existingURL.shortID, urls: [existingURL]})
     const shortID = shortid()
-    await URL.create({
+    const shortURL = await URL.create({
         shortID: shortID,
         redirectURL: body.url,
+        user: req.user._id,
         visitHistory: []
     });
+    console.log(shortURL)
     return res.render("home", {
         id: shortID,
+        urls: [shortURL]
     })
 }
 
@@ -38,20 +39,17 @@ export const redirectURL = async (req, res) => {
     res.redirect(entry.redirectURL);
 }
 
-export const deleteShortId = async (req, res)=>{
+export const deleteShortId = async (req, res) => {
     console.log(req.params.id)
     await URL.findByIdAndDelete(req.params.id);
     res.render("home")
-    // if(!id) return res.status(404).render("home");
-    // const allUrls = await URL.find({});
-    // if (allUrls) res.render("home", {urls : allUrls})
 }
 
 export const analyticsURL = async (req, res) => {
     const shortID = req.params.shortId;
     const result = await URL.findOne({ shortID });
-    return res.json({ 
-    totalClicks: result.visitHistory.length,
-    analytics: result.visitHistory
- })
+    return res.json({
+        totalClicks: result.visitHistory.length,
+        analytics: result.visitHistory
+    })
 }

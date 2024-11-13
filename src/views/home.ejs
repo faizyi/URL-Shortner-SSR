@@ -50,8 +50,8 @@
                 </tr>
             </thead>
             <tbody>
-                <% if (locals.urls) { %>
-                    <% urls.forEach((url, index) => { %>
+                <% if (locals.urls && locals.urls.length) { %>
+                    <% urls.map((url, index) => { %>
                         <tr>
                             <td><%= index + 1 %></td>
                             <td><a target="_blank" href="http://localhost:9001/url/<%= url.shortID %>">
