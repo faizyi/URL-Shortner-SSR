@@ -7,11 +7,12 @@ import staticRoutes from "./src/routes/static.js"
 import usersRoutes from "./src/routes/user.js"
 import connectToDB from "./src/connection/url.js";
 import { authentication, authorization } from "./src/middleware/auth.js";
+import config from "./src/config/urls.js";
 
 const __fileName = fileURLToPath(import.meta.url)
 const __dirName  = path.dirname(__fileName)
 const app = express();
-const PORT = 9001;
+const PORT = config.appPort;
 
 app.use(express.json());
 app.use(express.urlencoded({extended: true}));
@@ -22,7 +23,7 @@ app.set("views", path.join(__dirName, "src", "views"))
 app.use(authentication);
 
 try {
-    connectToDB("mongodb+srv://faizi13062000:XkRvIMLG1Qr7Lm2P@e-commerce.zy2wz.mongodb.net/URL-Shortner");
+    connectToDB();
   } catch (error) {
     console.error("Database connection error:", error);
   }

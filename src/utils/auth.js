@@ -1,8 +1,7 @@
 // StateFull
 // const userSessionId = new Map();
-import dotenv from "dotenv"
-dotenv.config();
 import jwt from "jsonwebtoken";
+import config from "../config/urls.js";
 // const SECRET_KEY = "bhjyfdvcvcvcftdyudyugediuiasjbhbhjvadowyddfvavsgh"
 
 export const setUser = (user)=>{
@@ -10,13 +9,13 @@ export const setUser = (user)=>{
         _id: user._id,
         email: user.email,
         role: user.role
-    }, process.env.SECRET_KEY)
+    }, config.jwtKey)
 }
 
 export const getUser = (token)=>{
     if(!token) return null;
     try {
-        return jwt.verify(token, process.env.SECRET_KEY) 
+        return jwt.verify(token, config.jwtKey) 
     } catch (error) {
         return null;
     }
