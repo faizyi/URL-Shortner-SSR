@@ -3,74 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Home Page</title>
-    <link rel="stylesheet" href="/url.css">
+    <title>Home Page - URL Shortener</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100 p-4">
+
     <!-- URL Input Section -->
-    <section class="section1">
-        <div class="shorturl-container">
-            <form method="post" action="/url">
-                <h1>URL Shortener</h1>
-                <input type="url" name="url" class="input-url" placeholder="Enter your long URL here" required>
-                <br>
-                <button class="btn-generate">Generate Short URL</button>
+    <section class="max-w-3xl mx-auto bg-white shadow-md rounded-lg p-6 mb-8">
+        <div class="text-center">
+            <h1 class="text-3xl font-bold text-gray-800 mb-4">URL Shortener</h1>
+            <form method="post" action="/url" class="space-y-4">
+                <input type="url" name="url" placeholder="Enter your long URL here" required
+                    class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+                <button type="submit"
+                    class="w-full bg-indigo-600 text-white rounded-md p-2 font-semibold hover:bg-indigo-700 transition">
+                    Generate Short URL
+                </button>
             </form>
-
-            <!-- Display Short URL -->
-            <div>
-                <% if (locals.id) { %>
-                    <p>Your Short URL is here: 
-                        <a target="_blank" href="https://urlshortner-aam1a6jv.b4a.run/url/<%= id %>">
-                            https://urlshortner-aam1a6jv.b4a.run/url/<%= id %>
-                        </a>
-                    </p>
-                <% } %>
-            </div>
-
-            <!-- Display Errors -->
-            <div>
-                <% if (locals.error) { %>
-                    <p class="error-message"><%= error %></p>
-                <% } %>
-            </div>
         </div>
+
+        <!-- Display Short URL -->
+        <% if (locals.id) { %>
+            <div class="mt-4 bg-green-100 text-green-800 p-4 rounded-md">
+                <p>Your Short URL is here: 
+                    <a class="text-indigo-600 underline" target="_blank" href="https://urlshortner-aam1a6jv.b4a.run/url/<%= id %>">
+                        https://urlshortner-aam1a6jv.b4a.run/url/<%= id %>
+                    </a>
+                </p>
+            </div>
+        <% } %>
+
+        <!-- Display Errors -->
+        <% if (locals.error) { %>
+            <div class="mt-4 bg-red-100 text-red-800 p-4 rounded-md">
+                <p><%= error %></p>
+            </div>
+        <% } %>
     </section>
 
     <!-- Analytics Section -->
-    <section class="analytics-section">
-        <table class="analytics-table">
-            <thead>
-                <tr>
-                    <th>S. No</th>
-                    <th>Short ID</th>
-                    <th>Redirect URL</th>
-                    <th>Total Clicks</th>
-                    <th>Action</th>
-                </tr>
-            </thead>
-            <tbody>
-                <% if (locals.urls && locals.urls.length) { %>
-                    <% urls.map((url, index) => { %>
-                        <tr>
-                            <td><%= index + 1 %></td>
-                            <td><a target="_blank" href="https://urlshortner-aam1a6jv.b4a.run/url/<%= url.shortID %>">
-                                https://urlshortner-aam1a6jv.b4a.run/url/<%= url.shortID %></a></td>
-                            <td><%= url.redirectURL %></td>
-                            <td><%= url.visitHistory.length %></td>
-                            <td>
-                            <button onclick="deleteShortId(`<%= url._id %>`)">Delete</button></td>
-                        </tr>
-                    <% }) %>
-                <% } else {  %> 
-                    <tr>
-                        <td colspan="4" class="no-data">No URLs available</td>
+    <section class="max-w-4xl mx-auto bg-white shadow-md rounded-lg p-6">
+        <h2 class="text-2xl font-semibold text-gray-800 mb-4">Analytics</h2>
+        <div class="overflow-x-auto overflow-y-auto max-h-80">
+            <table class="w-full table-auto border-collapse border border-gray-300">
+                <thead>
+                    <tr class="bg-gray-100">
+                        <th class="border border-gray-300 p-2">S. No</th>
+                        <th class="border border-gray-300 p-2">Short ID</th>
+                        <th class="border border-gray-300 p-2">Redirect URL</th>
+                        <th class="border border-gray-300 p-2">Total Clicks</th>
+                        <th class="border border-gray-300 p-2">Action</th>
                     </tr>
-                <%  }  %>             
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    <% if (locals.urls && locals.urls.length) { %>
+                        <% urls.map((url, index) => { %>
+                            <tr class="hover:bg-gray-50">
+                                <td class="border border-gray-300 p-2 text-center"><%= index + 1 %></td>
+                                <td class="border border-gray-300 p-2">
+                                    <a class="text-indigo-600 underline" target="_blank" href="https://urlshortner-aam1a6jv.b4a.run/url/<%= url.shortID %>">
+                                        <%= url.shortID %>
+                                    </a>
+                                </td>
+                                <td class="border border-gray-300 p-2 break-words"><%= url.redirectURL %></td>
+                                <td class="border border-gray-300 p-2 text-center"><%= url.visitHistory.length %></td>
+                                <td class="border border-gray-300 p-2 text-center">
+                                    <button onclick="deleteShortId('<%= url._id %>')" class="bg-red-500 text-white px-2 py-1 rounded hover:bg-red-600 transition">
+                                        Delete
+                                    </button>
+                                </td>
+                            </tr>
+                        <% }) %>
+                    <% } else { %>
+                        <tr>
+                            <td colspan="5" class="border border-gray-300 p-4 text-center text-gray-500">No URLs available</td>
+                        </tr>
+                    <% } %>
+                </tbody>
+            </table>
+        </div>
     </section>
-
 
     <script src="/url.js"></script>
 </body>

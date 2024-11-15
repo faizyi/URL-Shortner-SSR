@@ -4,22 +4,34 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
 
-    <section>
-        <h1>Login</h1>
+    <section class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
+        <h1 class="text-2xl font-semibold mb-6 text-center text-gray-800">Login</h1>
         <% if (locals.message) { %>
-         <p><%=  message %></p>
+            <p class="mb-4 text-red-500 text-center"><%= message %></p>
         <% } %>
-    <form action="/user/login" method="post">
-        <label>Email:</label>
-        <input type="text" name="email" placeholder="Enter Email"required>
-        <label>Password:</label>
-        <input type="password" name="password" placeholder="Enter Password" required>
-        <button type="submit">Login</button>
-    </form>
-</section>
-    
+        <form action="/user/login" method="post" class="space-y-4">
+            <div>
+                <label for="email" class="block text-sm font-medium text-gray-700">Email:</label>
+                <input type="text" name="email" id="email" placeholder="Enter Email" required
+                    class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <div>
+                <label for="password" class="block text-sm font-medium text-gray-700">Password:</label>
+                <input type="password" name="password" id="password" placeholder="Enter Password" required
+                    class="w-full border border-gray-300 rounded-md p-2 focus:outline-none focus:ring-2 focus:ring-indigo-500">
+            </div>
+            <button type="submit"
+                class="w-full bg-indigo-600 text-white rounded-md p-2 font-semibold hover:bg-indigo-700 transition">
+                Login
+            </button>
+        </form>
+        <p class="mt-4 text-center text-sm text-gray-600">
+            Don't have an account? <a href="/signup" class="text-indigo-600 hover:underline">Sign up</a>
+        </p>
+    </section>
 </body>
 </html>
