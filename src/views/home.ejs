@@ -21,8 +21,8 @@
             <div>
                 <% if (locals.id) { %>
                     <p>Your Short URL is here: 
-                        <a target="_blank" href="http://localhost:9001/url/<%= id %>">
-                            http://localhost:9001/url/<%= id %>
+                        <a target="_blank" href="https://urlshortner-aam1a6jv.b4a.run/url/<%= id %>">
+                            https://urlshortner-aam1a6jv.b4a.run/url/<%= id %>
                         </a>
                     </p>
                 <% } %>
@@ -54,8 +54,8 @@
                     <% urls.map((url, index) => { %>
                         <tr>
                             <td><%= index + 1 %></td>
-                            <td><a target="_blank" href="http://localhost:9001/url/<%= url.shortID %>">
-                            http://localhost:9001/url/<%= url.shortID %></a></td>
+                            <td><a target="_blank" href="https://urlshortner-aam1a6jv.b4a.run/url/<%= url.shortID %>">
+                                https://urlshortner-aam1a6jv.b4a.run/url/<%= url.shortID %></a></td>
                             <td><%= url.redirectURL %></td>
                             <td><%= url.visitHistory.length %></td>
                             <td>
