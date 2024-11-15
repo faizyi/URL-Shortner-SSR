@@ -22,14 +22,14 @@ app.set("views", path.join(__dirName, "src", "views"))
 app.use(authentication);
 
 try {
-    connectToDB();
+    connectToDB("mongodb+srv://faizi13062000:XkRvIMLG1Qr7Lm2P@e-commerce.zy2wz.mongodb.net/URL-Shortner");
   } catch (error) {
     console.error("Database connection error:", error);
   }
 
-app.get("/", (req,res)=>{
-  res.send("vercel")
-})
+// app.get("/", (req,res)=>{
+//   res.send("vercel")
+// })
 app.use("/url", 
   authorization(["USER"]), 
   urlRoutes)
