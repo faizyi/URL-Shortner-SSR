@@ -27,10 +27,12 @@ try {
     console.error("Database connection error:", error);
   }
 
-// app.get("/", (req,res)=>{
-//     res.send("server")
-// })
-app.use("/url", authorization(["USER"]), urlRoutes)
+app.get("/", (req,res)=>{
+  res.send("vercel")
+})
+app.use("/url", 
+  authorization(["USER"]), 
+  urlRoutes)
 app.use("/", staticRoutes)
 app.use("/user", usersRoutes)
 
@@ -38,5 +40,5 @@ app.listen(PORT, ()=>{
     console.log(`Server on ${PORT}`)
 })
 
-// export default app;
+export default app;
 
